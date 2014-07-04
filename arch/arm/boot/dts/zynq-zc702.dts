@@ -241,5 +241,9 @@
                                 xlnx,device-id = <0x0>;
                         };
                 } ;
+		mercury_0: mercury@40420000 {
+			compatible = "mercury";
+			reg = <0x40420000 0x10000>;
+		} ;
 	} ;
 } ;
