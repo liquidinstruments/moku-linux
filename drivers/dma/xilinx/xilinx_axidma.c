@@ -892,7 +892,6 @@ static void xilinx_dma_free_channels(struct xilinx_dma_device *xdev)
 		if(!xdev->chan[i]) continue;
 		list_del(&xdev->chan[i]->common.device_node);
 		tasklet_kill(&xdev->chan[i]->tasklet);
-		irq_dispose_mapping(xdev->chan[i]->irq);
 	}
 }
 
