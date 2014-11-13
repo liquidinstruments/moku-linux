@@ -221,9 +221,11 @@ static void xilinx_dma_free_chan_resources(struct dma_chan *dchan)
 	unsigned long flags;
 
 	dev_dbg(chan->dev, "Free all channel resources.\n");
+	tasklet_disable(&chan->tasklet);
 	spin_lock_irqsave(&chan->lock, flags);
 	xilinx_dma_free_desc_list(chan, &chan->active_list);
 	xilinx_dma_free_desc_list(chan, &chan->pending_list);
+	tasklet_enable(&chan->tasklet);
 	spin_unlock_irqrestore(&chan->lock, flags);
 
 	dma_pool_destroy(chan->desc_pool);
