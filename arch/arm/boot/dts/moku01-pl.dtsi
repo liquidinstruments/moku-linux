@@ -14,6 +14,8 @@
 			dma-channel@40410030 {
 				compatible = "xlnx,axi-dma-s2mm-channel";
 				interrupts = <0 31 4>;
+				xlnx,datawidth = <0x40>;
+                xlnx,device-id = <0x0>;
 			} ;
 		} ;
 		axi_dma_1: axi-dma@40420000 {
@@ -24,6 +26,12 @@
 			dma-channel@40420030 {
 				compatible = "xlnx,axi-dma-s2mm-channel";
 				interrupts = <0 30 4>;
+				xlnx,datawidth = <0x40>;
+                xlnx,device-id = <0x0>;
+			} ;
+		mercury_0: mercury@40401000 {
+			compatible = "mercury";
+			reg = <0x40401000 0x1000>;
 			} ;
 		} ;
 	} ;
