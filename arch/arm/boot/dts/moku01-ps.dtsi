@@ -236,7 +236,7 @@
 			xlnx,qspi-mode = <0x0>;
 
 			flash@0 {
-				compatible = "n25q128";
+				compatible = "n25q00aa13";
 				reg = <0x0>;
 				spi-max-frequency = <50000000>;
 				#address-cells = <1>;
@@ -255,11 +255,15 @@
 				};
 				partition@qspi-rootfs {
 					label = "qspi-rootfs";
-					reg = <0x620000 0x5E0000>;
+					reg = <0x620000 0x1000000>;
 				};
 				partition@qspi-bitstream {
 					label = "qspi-bitstream";
-					reg = <0xC00000 0x400000>;
+					reg = <0x1620000 0x4000000>;
+				};
+				partition@qspi-log {
+					label="qspi-log";
+					reg = <0x5620000 0x29E0000>;
 				};
 			};
 		} ;
