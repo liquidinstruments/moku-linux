@@ -159,7 +159,6 @@
 					#size-cells = <0>;
 					reg = <0>;
 					bt113: bt113@0 {
-						# TODO: Placeholder, find real driver
 						#clock-cells = <0>;
 						compatible = "bt113";
 					};
