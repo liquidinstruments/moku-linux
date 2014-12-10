@@ -154,16 +154,6 @@
 				#size-cells = <0>;
 				reg = <0x74>;
 
-				i2c@0 {
-					#address-cells = <1>;
-					#size-cells = <0>;
-					reg = <0>;
-					bt113: bt113@0 {
-						#clock-cells = <0>;
-						compatible = "bt113";
-					};
-				};
-
 				i2c@2 {
 					#address-cells = <1>;
 					#size-cells = <0>;
