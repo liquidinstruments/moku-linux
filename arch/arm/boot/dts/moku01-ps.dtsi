@@ -293,6 +293,7 @@
 			interrupt-parent = <&ps7_scugic_0>;
 			interrupts = <0 24 4>;
 			reg = <0xe0100000 0x1000>;
+			bus-width=<4>;
 			xlnx,has-cd = <0x1>;
 			xlnx,has-power = <0x0>;
 			xlnx,has-wp = <0x1>;
