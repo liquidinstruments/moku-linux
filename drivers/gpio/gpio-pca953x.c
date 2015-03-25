@@ -745,6 +745,8 @@ static int pca953x_probe(struct i2c_client *client,
 			dev_warn(&client->dev, "setup failed, %d\n", ret);
 	}
 
+	dev_info(&client->dev, "pca953x GPIO probed successfully at addr %d\n", client->addr);
+
 	i2c_set_clientdata(client, chip);
 	return 0;
 }

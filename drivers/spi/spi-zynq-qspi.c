@@ -781,6 +781,8 @@ static int zynq_qspi_probe(struct platform_device *pdev)
 		goto clk_dis_all;
 	}
 
+	dev_info(&pdev->dev, "zynq qspi probe succeeded\n");
+
 	return ret;
 
 clk_dis_all:

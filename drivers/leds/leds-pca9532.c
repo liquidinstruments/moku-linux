@@ -435,6 +435,8 @@ static int pca9532_configure(struct i2c_client *client,
 	}
 #endif
 
+	dev_info(&client->dev, "pca953x leds configured at %d\n", client->addr);
+
 	return 0;
 
 exit:
