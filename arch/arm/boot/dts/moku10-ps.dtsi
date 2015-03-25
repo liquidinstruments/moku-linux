@@ -157,17 +157,17 @@
 				reg = <0x41>;
 			};
 
-			leds_fp: gpio@60 {
+			leds_fp: leds@60 {
 				compatible = "nxp,pca9531";
 				reg = <0x60>;
 			};
 
-			leds_ufo0: gpio@61 {
+			leds_ufo0: leds@61 {
 				compatible = "nxp,pca9531";
 				reg = <0x61>;
 			};
 
-			leds_ufo1: gpio@62 {
+			leds_ufo1: leds@62 {
 				compatible = "nxp,pca9531";
 				reg = <0x62>;
 			};
@@ -175,153 +175,6 @@
 			/* Apple Coprocessor at 0x10 accessed by userspace driver. */
 
 		} ;
-		gpio-leds {
-			compatible = "gpio-leds";
-			led-fpo {
-				label = "led-fpo";
-				gpios = <&leds_fp 0 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-fpb {
-				label = "led-fpb";
-				gpios = <&leds_fp 1 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-fpw {
-				label = "led-fpw";
-				gpios = <&leds_fp 2 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-adc0 {
-				label = "led-adc0";
-				gpios = <&leds_fp 3 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-adc1 {
-				label = "led-adc1";
-				gpios = <&leds_fp 4 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-dac0 {
-				label = "led-dac0";
-				gpios = <&leds_fp 5 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-dac1 {
-				label = "led-dac1";
-				gpios = <&leds_fp 6 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-ref {
-				label = "led-ref";
-				gpios = <&leds_fp 7 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-ur0 {
-				label = "led-ur0";
-				gpios = <&leds_ufo0 0 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-ur1 {
-				label = "led-ur1";
-				gpios = <&leds_ufo0 1 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-ug0 {
-				label = "led-ug0";
-				gpios = <&leds_ufo0 2 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-ug1 {
-				label = "led-ug1";
-				gpios = <&leds_ufo0 3 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-ub0 {
-				label = "led-ub0";
-				gpios = <&leds_ufo0 4 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-ub1 {
-				label = "led-ub1";
-				gpios = <&leds_ufo0 5 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-uw0 {
-				label = "led-uw0";
-				gpios = <&leds_ufo0 6 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-uw1 {
-				label = "led-uw1";
-				gpios = <&leds_ufo0 7 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-ur2 {
-				label = "led-ur2";
-				gpios = <&leds_ufo1 0 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-ur3 {
-				label = "led-ur3";
-				gpios = <&leds_ufo1 1 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-ug2 {
-				label = "led-ug2";
-				gpios = <&leds_ufo1 2 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-ug3 {
-				label = "led-ug3";
-				gpios = <&leds_ufo1 3 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-ub2 {
-				label = "led-ub2";
-				gpios = <&leds_ufo1 4 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-ub3 {
-				label = "led-ub3";
-				gpios = <&leds_ufo1 5 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-uw2 {
-				label = "led-uw2";
-				gpios = <&leds_ufo1 6 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-			led-uw3 {
-				label = "led-uw3";
-				gpios = <&leds_ufo1 7 1>;
-				default-state = "off";
-				linux,default-trigger = "heartbeat";
-			};
-		};
 		ps7_ocmc_0: ps7-ocmc@f800c000 {
 			compatible = "xlnx,zynq-ocmc-1.0";
 			interrupt-parent = <&ps7_scugic_0>;
@@ -341,7 +194,7 @@
 		ps7_qspi_0: ps7-qspi@e000d000 {
 			#address-cells = <1>;
 			#size-cells = <0>;
-			clock-names = "ref_clk", "aper_clk";
+			clock-names = "ref_clk", "pclk";
 			clocks = <&clkc 10>, <&clkc 43>;
 			compatible = "xlnx,zynq-qspi-1.0";
 			interrupt-parent = <&ps7_scugic_0>;
@@ -353,7 +206,7 @@
 			xlnx,qspi-mode = <0x0>;
 
 			flash@0 {
-				compatible = "n25q00aa13";
+				compatible = "n25q00aa11";
 				reg = <0x0>;
 				spi-max-frequency = <50000000>;
 				#address-cells = <1>;
