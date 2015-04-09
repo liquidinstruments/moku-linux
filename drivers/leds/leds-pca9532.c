@@ -21,6 +21,7 @@
 #include <linux/workqueue.h>
 #include <linux/leds-pca9532.h>
 #include <linux/gpio.h>
+#include <linux/of.h>
 
 /* m =  num_leds*/
 #define PCA9532_REG_INPUT(i)	((i) >> 3)
@@ -444,12 +445,65 @@ exit:
 	return err;
 }
 
+#ifdef CONFIG_OF
+static int pca9532_pdata_from_of(struct device *dev, struct pca9532_platform_data **ppdata)
+{
+	struct device_node *node, *pp;
+	struct pca9532_platform_data *pdata;
+
+	node = dev->of_node;
+	if (!node)
+		return -ENODEV;
+
+
+	*ppdata = devm_kzalloc(dev, sizeof(struct pca9532_platform_data), GFP_KERNEL);
+	if (!(*ppdata))
+		return -ENOMEM;
+
+	pdata = *ppdata;
+
+	of_property_read_u8_array(node, "pwm", pdata->pwm, 2);
+	of_property_read_u8_array(node, "psc", pdata->psc, 2);
+
+	of_property_read_u32(node, "gpio-base", &pdata->gpio_base);
+
+	for_each_child_of_node(node, pp) {
+		const char *label;
+		int led = -1;
+
+		of_property_read_u32(pp, "reg", &led);
+
+		if (led < 0 || led > 15) {
+			dev_warn(dev, "Invalid LED Number %d\n", led);
+			continue;
+		}
+
+		if (!of_property_read_string(pp, "label", &label)) {
+			dev_warn(dev, "LED %d has empty label, not registering\n", led);
+			continue;
+		}
+
+		pdata->leds[led].name = (char *)label;
+
+		of_property_read_u32(pp, "type", &pdata->leds[led].type);
+		of_property_read_u32(pp, "state", &pdata->leds[led].state);
+	}
+
+	return 0;
+}
+#endif
+
 static int pca9532_probe(struct i2c_client *client,
 	const struct i2c_device_id *id)
 {
 	struct pca9532_data *data = i2c_get_clientdata(client);
 	struct pca9532_platform_data *pca9532_pdata =
 			dev_get_platdata(&client->dev);
+
+#ifdef CONFIG_OF
+	if (!pca9532_pdata)
+		pca9532_pdata_from_of(&client->dev, &pca9532_pdata);
+#endif
 
 	if (!pca9532_pdata)
 		return -EIO;
