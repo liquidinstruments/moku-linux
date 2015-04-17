@@ -468,7 +468,7 @@ static int pca9532_pdata_from_of(struct device *dev, struct pca9532_platform_dat
 	of_property_read_u32(node, "gpio-base", &pdata->gpio_base);
 
 	for_each_child_of_node(node, pp) {
-		const char *label;
+		const char *label = NULL;
 		int led = -1;
 
 		of_property_read_u32(pp, "reg", &led);
@@ -478,7 +478,8 @@ static int pca9532_pdata_from_of(struct device *dev, struct pca9532_platform_dat
 			continue;
 		}
 
-		if (!of_property_read_string(pp, "label", &label)) {
+		of_property_read_string(pp, "label", &label);
+		if (!label) {
 			dev_warn(dev, "LED %d has empty label, not registering\n", led);
 			continue;
 		}
