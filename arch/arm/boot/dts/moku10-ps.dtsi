@@ -169,49 +169,49 @@
 					reg = <0>;
 					label = "ur1";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@1{
 					reg = <1>;
 					label = "ur2";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@2{
 					reg = <2>;
 					label = "ug1";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@3{
 					reg = <3>;
 					label = "ug2";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@4{
 					reg = <4>;
 					label = "ub1";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@5{
 					reg = <5>;
 					label = "ub2";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@6{
 					reg = <6>;
 					label = "uw1";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@7{
 					reg = <7>;
 					label = "uw2";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 			};
 
@@ -227,49 +227,49 @@
 					reg = <0>;
 					label = "fpb";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@1{
 					reg = <1>;
 					label = "fpw";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@2{
 					reg = <2>;
 					label = "fpo";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@3{
 					reg = <3>;
 					label = "adc0";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@4{
 					reg = <4>;
 					label = "adc1";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@5{
 					reg = <5>;
 					label = "dac0";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@6{
 					reg = <6>;
 					label = "dac1";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@7{
 					reg = <7>;
 					label = "ref";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 			};
 
@@ -285,49 +285,49 @@
 					reg = <0>;
 					label = "ur3";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@1{
 					reg = <1>;
 					label = "ur4";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@2{
 					reg = <2>;
 					label = "ug3";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@3{
 					reg = <3>;
 					label = "ug4";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@4{
 					reg = <4>;
 					label = "ub3";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@5{
 					reg = <5>;
 					label = "ub4";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@6{
 					reg = <6>;
 					label = "uw3";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 				@7{
 					reg = <7>;
 					label = "uw4";
 					type = <1>;
-					state = <1>;
+					state = <0>;
 				};
 			};
 
