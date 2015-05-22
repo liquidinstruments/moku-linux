@@ -153,6 +153,8 @@
 			};
 
 			ioex: gpio@41 {
+				#gpio-cells = <2>;
+				gpio-controller;
 				compatible = "nxp,pca9536";
 				reg = <0x41>;
 			};
@@ -225,13 +227,13 @@
 
 				@0{
 					reg = <0>;
-					label = "fpb";
+					label = "fpw";
 					type = <1>;
 					state = <0>;
 				};
 				@1{
 					reg = <1>;
-					label = "fpw";
+					label = "fpb";
 					type = <1>;
 					state = <0>;
 				};
@@ -283,49 +285,49 @@
 
 				@0{
 					reg = <0>;
-					label = "ur3";
+					label = "ur4";
 					type = <1>;
 					state = <0>;
 				};
 				@1{
 					reg = <1>;
-					label = "ur4";
+					label = "ur3";
 					type = <1>;
 					state = <0>;
 				};
 				@2{
 					reg = <2>;
-					label = "ug3";
+					label = "ug4";
 					type = <1>;
 					state = <0>;
 				};
 				@3{
 					reg = <3>;
-					label = "ug4";
+					label = "ug3";
 					type = <1>;
 					state = <0>;
 				};
 				@4{
 					reg = <4>;
-					label = "ub3";
+					label = "ub4";
 					type = <1>;
 					state = <0>;
 				};
 				@5{
 					reg = <5>;
-					label = "ub4";
+					label = "ub3";
 					type = <1>;
 					state = <0>;
 				};
 				@6{
 					reg = <6>;
-					label = "uw3";
+					label = "uw4";
 					type = <1>;
 					state = <0>;
 				};
 				@7{
 					reg = <7>;
-					label = "uw4";
+					label = "uw3";
 					type = <1>;
 					state = <0>;
 				};
@@ -534,5 +536,23 @@
 			reset = <0>;
 			timeout-sec = <10>;
 		} ;
+
+
+		gpio_keys {
+			compatible = "gpio-keys-polled";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			poll-interval = <500>;
+			button@1 {
+				label = "GPIO Power Button";
+				linux,code = <116>; /* Power button */
+				gpios = <&ioex 1 0>;
+			};
+		};
+
+		gpio-poweroff {
+			compatible = "gpio-poweroff";
+			gpios = <&ps7_gpio_0 47 1>;
+		};
 	} ;
 } ;
