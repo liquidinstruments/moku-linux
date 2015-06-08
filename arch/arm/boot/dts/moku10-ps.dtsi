@@ -241,7 +241,7 @@
 					reg = <2>;
 					label = "fpo";
 					type = <1>;
-					state = <0>;
+					state = <1>; // FP Orange on by default until boot completed
 				};
 				@3{
 					reg = <3>;
