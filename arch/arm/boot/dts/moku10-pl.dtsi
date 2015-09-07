@@ -15,7 +15,7 @@
 				compatible = "xlnx,axi-dma-s2mm-channel";
 				interrupts = <0 31 4>;
 				xlnx,datawidth = <0x40>;
-				xlnx,device-id = <0x10>;
+				xlnx,device-id = <0x00>;
 			} ;
 		} ;
 		axi_dma_1: axi-dma@40420000 {
@@ -27,7 +27,7 @@
 				compatible = "xlnx,axi-dma-s2mm-channel";
 				interrupts = <0 30 4>;
 				xlnx,datawidth = <0x40>;
-				xlnx,device-id = <0x11>;
+				xlnx,device-id = <0x01>;
 			} ;
 		} ;
 
@@ -35,24 +35,24 @@
 			compatible = "xlnx,axi-dma";
 			interrupt-parent = <&ps7_scugic_0>;
 			interrupts = <0 30 4>;
-			reg = <0x40420000 0x10000>;
+			reg = <0x40430000 0x10000>;
 			dma-channel@40420030 {
 				compatible = "xlnx,axi-dma-s2mm-channel";
 				interrupts = <0 30 4>;
 				xlnx,datawidth = <0x40>;
-				xlnx,device-id = <0x20>;
+				xlnx,device-id = <0x04>;
 			} ;
 		} ;
 		axi_dma_3: axi-dma@40440000 {
 			compatible = "xlnx,axi-dma";
 			interrupt-parent = <&ps7_scugic_0>;
 			interrupts = <0 30 4>;
-			reg = <0x40420000 0x10000>;
+			reg = <0x40440000 0x10000>;
 			dma-channel@40420030 {
 				compatible = "xlnx,axi-dma-s2mm-channel";
 				interrupts = <0 30 4>;
 				xlnx,datawidth = <0x40>;
-				xlnx,device-id = <0x21>;
+				xlnx,device-id = <0x05>;
 			} ;
 		} ;
 
