@@ -38,7 +38,7 @@
 			reg = <0x40430000 0x10000>;
 			dma-channel@40420030 {
 				compatible = "xlnx,axi-dma-s2mm-channel";
-				interrupts = <0 30 4>;
+				interrupts = <0 33 4>;
 				xlnx,datawidth = <0x40>;
 				xlnx,device-id = <0x04>;
 			} ;
@@ -50,7 +50,7 @@
 			reg = <0x40440000 0x10000>;
 			dma-channel@40420030 {
 				compatible = "xlnx,axi-dma-s2mm-channel";
-				interrupts = <0 30 4>;
+				interrupts = <0 32 4>;
 				xlnx,datawidth = <0x40>;
 				xlnx,device-id = <0x05>;
 			} ;
