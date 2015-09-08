@@ -30,31 +30,30 @@
 				xlnx,device-id = <0x01>;
 			} ;
 		} ;
-
 		axi_dma_2: axi-dma@40430000 {
 			compatible = "xlnx,axi-dma";
 			interrupt-parent = <&ps7_scugic_0>;
-			interrupts = <0 30 4>;
+			interrupts = <0 33 4>;
 			reg = <0x40430000 0x10000>;
-			dma-channel@40420030 {
+			dma-channel@40430030 {
 				compatible = "xlnx,axi-dma-s2mm-channel";
 				interrupts = <0 33 4>;
-				xlnx,datawidth = <0x40>;
-				xlnx,device-id = <0x04>;
-			} ;
-		} ;
+				xlnx,datawidth = <0x20>;
+				xlnx,device-id = <0x4>;
+			};
+		};
 		axi_dma_3: axi-dma@40440000 {
 			compatible = "xlnx,axi-dma";
 			interrupt-parent = <&ps7_scugic_0>;
-			interrupts = <0 30 4>;
+			interrupts = <0 32 4>;
 			reg = <0x40440000 0x10000>;
-			dma-channel@40420030 {
+			dma-channel@40440030 {
 				compatible = "xlnx,axi-dma-s2mm-channel";
 				interrupts = <0 32 4>;
-				xlnx,datawidth = <0x40>;
-				xlnx,device-id = <0x05>;
-			} ;
-		} ;
+				xlnx,datawidth = <0x20>;
+				xlnx,device-id = <0x5>;
+			};
+		};
 
 		mercury_0: mercury@40401000 {
 			compatible = "mercury";
