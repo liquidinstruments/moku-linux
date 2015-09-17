@@ -245,25 +245,25 @@
 				};
 				@3{
 					reg = <3>;
-					label = "adc0";
+					label = "dac0";
 					type = <1>;
 					state = <0>;
 				};
 				@4{
 					reg = <4>;
-					label = "adc1";
+					label = "dac1";
 					type = <1>;
 					state = <0>;
 				};
 				@5{
 					reg = <5>;
-					label = "dac0";
+					label = "adc0";
 					type = <1>;
 					state = <0>;
 				};
 				@6{
 					reg = <6>;
-					label = "dac1";
+					label = "adc1";
 					type = <1>;
 					state = <0>;
 				};
