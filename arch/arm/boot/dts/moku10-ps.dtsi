@@ -549,6 +549,16 @@
 				linux,code = <116>; /* Power button */
 				gpios = <&ioex 1 0>;
 			};
+			button@3 {
+				label = "Aeroplane Mode";
+				linux,code = <30>; /* 'a' */
+				gpios = <&ioex 2 0>;
+			};
+			button@4 {
+				label = "Factory Reset";
+				linux,code = <33>; /* 'f' */
+				gpios = <&ioex 3 0>;
+			};
 		};
 
 		gpio-poweroff {
