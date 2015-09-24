@@ -534,6 +534,16 @@ int jffs2_do_fill_super(struct super_block *sb, void *data, int silent)
 	}
 #endif
 
+	if (!c->mtd->erasesize) {
+		pr_err("Corrupt MTD descriptor!!! Seriously, not a good thing. Talk to Benny.\n");
+
+		/* HAAAAACKS only valid for the SPI NOR present on the Moku boards. */
+		c->mtd->erasesize = 64 * 1024;
+
+		/* Of course, don't know what else needs to be set here, or even whether its recoverable
+		 * at this point.. */
+	}
+
 	c->flash_size = c->mtd->size;
 	c->sector_size = c->mtd->erasesize;
 	blocks = c->flash_size / c->sector_size;
