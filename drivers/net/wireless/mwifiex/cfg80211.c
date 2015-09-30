@@ -1251,6 +1251,13 @@ mwifiex_cfg80211_del_station(struct wiphy *wiphy, struct net_device *dev,
 	if (!mac || is_broadcast_ether_addr(mac)) {
 		wiphy_dbg(wiphy, "%s: NULL/broadcast mac address\n", __func__);
 		list_for_each_entry(sta_node, &priv->sta_list, list) {
+
+			/* XXX: This driver is screwed, the sta_list has bogus entries that
+			 * cause segfaults at ifdown time. For now, just don't de-auth
+			 * the stations, let them notice we've disappeared on their own. */
+			pr_warning("Benny's hacked this driver good. Revisit.\n");
+			continue;
+
 			if (mwifiex_send_cmd(priv, HostCmd_CMD_UAP_STA_DEAUTH,
 					     HostCmd_ACT_GEN_SET, 0,
 					     sta_node->mac_addr, true))
