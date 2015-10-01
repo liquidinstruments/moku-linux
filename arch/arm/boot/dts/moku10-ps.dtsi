@@ -375,11 +375,11 @@
 				#size-cells = <1>;
 				partition@qspi-boot {
 					label = "qspi-boot";
-					reg = <0x0 0x1800000>;
+					reg = <0x50000 0x1C00000>;
 				};
 				partition@qspi-golden {
 					label = "qspi-golden";
-					reg = <0x1800000 0x1800000>;
+					reg = <0x1C50000 0x13B0000>;
 				};
 				partition@qspi-bitstream {
 					label = "qspi-bitstream";
