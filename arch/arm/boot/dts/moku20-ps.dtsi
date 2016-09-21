@@ -120,6 +120,13 @@
 			interrupts = <1 11 0x301>;
 			reg = <0xf8f00200 0x100>;
 		} ;
+		ps7_xadc: ps7-xadc@f8007100 {
+			compatible = "xlnx,zynq-xadc-1.00.a";
+			reg = <0xf8007100 0x20>;
+			interrupts = <0 7 4>;
+			interrupt-parent = <&ps7_scugic_0>;
+			clocks = <&clkc 12>;
+		};
 		ps7_gpio_0: ps7-gpio@e000a000 {
 			#gpio-cells = <2>;
 			clocks = <&clkc 42>;
@@ -245,7 +252,7 @@
 				};
 				@3{
 					reg = <3>;
-					label = "dac0";
+					label = "adc0";
 					type = <1>;
 					state = <0>;
 				};
@@ -257,13 +264,13 @@
 				};
 				@5{
 					reg = <5>;
-					label = "adc0";
+					label = "adc1";
 					type = <1>;
 					state = <0>;
 				};
 				@6{
 					reg = <6>;
-					label = "adc1";
+					label = "dac0";
 					type = <1>;
 					state = <0>;
 				};
@@ -541,6 +548,25 @@
 		gpio-poweroff {
 			compatible = "gpio-poweroff";
 			gpios = <&ps7_gpio_0 47 1>;
+		};
+
+		wlcore {
+			compatible = "wlcore";
+			interrupt-parent = <&ps7_scugic_0>;
+			irq = <96>;
+			platform-quirks = <1>;
+			board-ref-clock = <4>;
+			board-tcxo-clock = <1>;
+		};
+
+		wlan_en_reg: fixedregulator@1 {
+			compatible = "regulator-fixed";
+			regulator-name = "wlan-en-regulator";
+			regulator-min-microvolt = <3300000>;
+			regulator-max-microvolt = <3300000>;
+			gpio = <&ioex 0 0x4>;
+			startup-delay-us = <70000>;
+			enable-active-high;
 		};
 	} ;
 } ;
