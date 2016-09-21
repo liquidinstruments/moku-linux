@@ -411,3 +411,26 @@ void ieee80211_stop_rx_ba_session_offl(struct ieee80211_vif *vif,
 	ieee80211_queue_work(&local->hw, &sdata->work);
 }
 EXPORT_SYMBOL(ieee80211_stop_rx_ba_session_offl);
+
+void ieee80211_change_rx_ba_max_subframes(struct ieee80211_vif *vif,
+					  const u8 *addr,
+					  u8 max_subframes)
+{
+	struct ieee80211_sub_if_data *sdata = vif_to_sdata(vif);
+	struct sta_info *sta;
+
+	if (max_subframes == 0)
+		return;
+
+	rcu_read_lock();
+	sta = sta_info_get_bss(sdata, addr);
+	if (!sta) {
+		rcu_read_unlock();
+		return;
+	}
+	sta->sta.max_rx_aggregation_subframes = max_subframes;
+	ieee80211_queue_work(&sta->local->hw, &sta->ampdu_mlme.work);
+	rcu_read_unlock();
+}
+EXPORT_SYMBOL(ieee80211_change_rx_ba_max_subframes);
+

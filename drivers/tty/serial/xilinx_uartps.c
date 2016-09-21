@@ -743,6 +743,7 @@ static void cdns_uart_set_termios(struct uart_port *port,
  */
 static int cdns_uart_startup(struct uart_port *port)
 {
+	u32 ctrl_reg;
 	unsigned int retval = 0, status = 0;
 
 	retval = request_irq(port->irq, cdns_uart_isr, 0, CDNS_UART_NAME,
@@ -797,6 +798,12 @@ static int cdns_uart_startup(struct uart_port *port)
 		CDNS_UART_IXR_FRAMING | CDNS_UART_IXR_OVERRUN |
 		CDNS_UART_IXR_RXTRIG | CDNS_UART_IXR_TOUT,
 		CDNS_UART_IER_OFFSET);
+
+    /* enable hardware flow control */
+    ctrl_reg = cdns_uart_readl(CDNS_UART_MODEMCR_OFFSET);
+    ctrl_reg |= (1<<5);
+    cdns_uart_writel(ctrl_reg, CDNS_UART_MODEMCR_OFFSET);
+    /* ... should be a flag from devicetree */
 
 	return retval;
 }

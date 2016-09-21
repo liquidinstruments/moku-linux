@@ -1172,6 +1172,7 @@ enum ieee80211_vif_flags {
  * @debugfs_dir: debugfs dentry, can be used by drivers to create own per
  *	interface debug files. Note that it will be NULL for the virtual
  *	monitor interface (if that is requested.)
+ * @dummy_p2p: dummy p2p interface - not used for data
  * @drv_priv: data area for driver use, will always be aligned to
  *	sizeof(void *).
  */
@@ -1192,6 +1193,8 @@ struct ieee80211_vif {
 #ifdef CONFIG_MAC80211_DEBUGFS
 	struct dentry *debugfs_dir;
 #endif
+
+	bool dummy_p2p;
 
 	/* must be last */
 	u8 drv_priv[0] __aligned(sizeof(void *));
@@ -1405,6 +1408,9 @@ struct ieee80211_sta_rates {
  * @supp_rates: Bitmap of supported rates (per band)
  * @ht_cap: HT capabilities of this STA; restricted to our own capabilities
  * @vht_cap: VHT capabilities of this STA; restricted to our own capabilities
+ * @max_rx_aggregation_subframes: restriction on rx buff size for this active
+ *	link. Initially set to local->hw.max_rx_aggregation_subframes but can
+ *	be modified by driver.
  * @wme: indicates whether the STA supports WME. Only valid during AP-mode.
  * @drv_priv: data area for driver use, will always be aligned to
  *	sizeof(void *), size is determined in hw information.
@@ -1426,6 +1432,7 @@ struct ieee80211_sta {
 	u16 aid;
 	struct ieee80211_sta_ht_cap ht_cap;
 	struct ieee80211_sta_vht_cap vht_cap;
+	u8 max_rx_aggregation_subframes;
 	bool wme;
 	u8 uapsd_queues;
 	u8 max_sp;
@@ -2969,7 +2976,8 @@ struct ieee80211_ops {
 				 struct ieee80211_vif *vif,
 				 struct ieee80211_channel *chan,
 				 int duration,
-				 enum ieee80211_roc_type type);
+				 enum ieee80211_roc_type type,
+				 unsigned long cookie);
 	int (*cancel_remain_on_channel)(struct ieee80211_hw *hw);
 	int (*set_ringparam)(struct ieee80211_hw *hw, u32 tx, u32 rx);
 	void (*get_ringparam)(struct ieee80211_hw *hw,
@@ -4520,7 +4528,7 @@ void ieee80211_ready_on_channel(struct ieee80211_hw *hw);
  * ieee80211_remain_on_channel_expired - remain_on_channel duration expired
  * @hw: pointer as obtained from ieee80211_alloc_hw()
  */
-void ieee80211_remain_on_channel_expired(struct ieee80211_hw *hw);
+void ieee80211_remain_on_channel_expired(struct ieee80211_hw *hw, u64 cookie);
 
 /**
  * ieee80211_stop_rx_ba_session - callback to stop existing BA sessions
@@ -4538,6 +4546,24 @@ void ieee80211_remain_on_channel_expired(struct ieee80211_hw *hw);
  */
 void ieee80211_stop_rx_ba_session(struct ieee80211_vif *vif, u16 ba_rx_bitmap,
 				  const u8 *addr);
+
+/**
+ * ieee80211_change_rx_ba_max_subframes - callback to change
+ *	sta.max_rx_aggregation_subframes and stop existing BA sessions
+ *
+ * This capability is usefull in cases of IOP, i.e. cases where peer sta
+ * or ap doesn't respect the max subframes in a single-frame and uses the
+ * max window size instead. In these cases the driver/chip may recover by
+ * decreasing the max_rx_aggregation_subframes to use the single frame
+ * limitation.
+ *
+ * @vif: &struct ieee80211_vif pointer from the add_interface callback.
+ * @addr: & to bssid mac address
+ * @max_subframes: new max_rx_aggregation_subframes for this sta
+ */
+void ieee80211_change_rx_ba_max_subframes(struct ieee80211_vif *vif,
+					  const u8 *addr,
+					  u8 max_subframes);
 
 /**
  * ieee80211_send_bar - send a BlockAckReq frame
@@ -4585,6 +4611,10 @@ void ieee80211_start_rx_ba_session_offl(struct ieee80211_vif *vif,
  */
 void ieee80211_stop_rx_ba_session_offl(struct ieee80211_vif *vif,
 				       const u8 *addr, u16 tid);
+
+void ieee80211_change_rx_ba_max_subframes(struct ieee80211_vif *vif,
+					  const u8 *addr,
+					  u8 max_subframes);
 
 /* Rate control API */
 
