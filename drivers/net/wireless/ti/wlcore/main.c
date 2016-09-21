@@ -6054,7 +6054,7 @@ static int wl12xx_get_hw_info(struct wl1271 *wl)
 		ret = wl->ops->get_mac(wl);
 
 out:
-	wl1271_power_off(wl);
+	//wl1271_power_off(wl);
 	return ret;
 }
 
