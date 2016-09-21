@@ -325,7 +325,7 @@ static void wl12xx_adjust_channels(struct wl1271_cmd_sched_scan_config *cmd,
 int wl1271_scan_sched_scan_config(struct wl1271 *wl,
 				  struct wl12xx_vif *wlvif,
 				  struct cfg80211_sched_scan_request *req,
-				  struct ieee80211_sched_scan_ies *ies)
+				  struct ieee80211_scan_ies *ies)
 {
 	struct wl1271_cmd_sched_scan_config *cfg = NULL;
 	struct wlcore_scan_channels *cfg_channels = NULL;
@@ -457,7 +457,7 @@ out_free:
 
 int wl12xx_sched_scan_start(struct wl1271 *wl, struct wl12xx_vif  *wlvif,
 			    struct cfg80211_sched_scan_request *req,
-			    struct ieee80211_sched_scan_ies *ies)
+			    struct ieee80211_scan_ies *ies)
 {
 	int ret;
 

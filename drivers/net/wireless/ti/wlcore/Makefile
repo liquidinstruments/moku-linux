@@ -20,7 +20,7 @@ ifeq ($(wildcard $(GIT_CHECK_PATH).git/HEAD),)
 WLCORE_VERSION_DEPS := $(src)/release_version.h
 
 define filechk_version.h
-	(cat $(src)/release_version.h)
+	(cat $(PWD)/$(src)/release_version.h)
 endef
 
 else
@@ -41,7 +41,7 @@ $(obj)/version.h: $(WLCORE_VERSION_DEPS)
 # seems like in some cases, for unknown reason,
 # this dependency is not enforced implictly,
 # so add it explicitly
-$(obj)/main.c: $(src)/version.h
+$(src)/main.c: $(src)/version.h
 
 wlcore_spi-objs 	= spi.o
 wlcore_sdio-objs	= sdio.o
