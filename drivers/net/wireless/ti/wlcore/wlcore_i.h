@@ -31,6 +31,9 @@
 #include <linux/list.h>
 #include <linux/bitops.h>
 #include <net/mac80211.h>
+#ifdef CONFIG_HAS_WAKELOCK
+#include <linux/wakelock.h>
+#endif
 
 #include "conf.h"
 #include "ini.h"
@@ -224,6 +227,7 @@ enum wl12xx_flags {
 	WL1271_FLAG_TX_PENDING,
 	WL1271_FLAG_IN_ELP,
 	WL1271_FLAG_ELP_REQUESTED,
+	WL1271_FLAG_WAKE_LOCK,
 	WL1271_FLAG_IRQ_RUNNING,
 	WL1271_FLAG_FW_TX_BUSY,
 	WL1271_FLAG_DUMMY_PACKET_PENDING,
@@ -251,6 +255,7 @@ enum wl12xx_vif_flags {
 	WLVIF_FLAG_AP_PROBE_RESP_SET,
 	WLVIF_FLAG_IN_USE,
 	WLVIF_FLAG_ACTIVE,
+	WLVIF_FLAG_BEACON_DISABLED,
 };
 
 struct wl12xx_vif;
@@ -434,6 +439,8 @@ struct wl12xx_vif {
 
 	bool wmm_enabled;
 
+	bool radar_enabled;
+
 	/* Rx Streaming */
 	struct work_struct rx_streaming_enable_work;
 	struct work_struct rx_streaming_disable_work;
@@ -462,6 +469,10 @@ struct wl12xx_vif {
 
 	/* work for canceling ROC after pending auth reply */
 	struct delayed_work pending_auth_complete_work;
+
+	/* update rate conrol */
+	enum ieee80211_sta_rx_bandwidth rc_update_bw;
+	struct work_struct rc_update_work;
 
 	/*
 	 * total freed FW packets on the link.
@@ -514,13 +525,14 @@ int wl1271_recalc_rx_streaming(struct wl1271 *wl, struct wl12xx_vif *wlvif);
 void wl12xx_queue_recovery_work(struct wl1271 *wl);
 size_t wl12xx_copy_fwlog(struct wl1271 *wl, u8 *memblock, size_t maxlen);
 int wl1271_rx_filter_alloc_field(struct wl12xx_rx_filter *filter,
-				 u16 offset, u8 flags,
-				 const u8 *pattern, u8 len);
+					u16 offset, u8 flags,
+					u8 *pattern, u8 len);
 void wl1271_rx_filter_free(struct wl12xx_rx_filter *filter);
 struct wl12xx_rx_filter *wl1271_rx_filter_alloc(void);
 int wl1271_rx_filter_get_fields_size(struct wl12xx_rx_filter *filter);
 void wl1271_rx_filter_flatten_fields(struct wl12xx_rx_filter *filter,
 				     u8 *buf);
+int wlcore_rx_ba_max_subframes(struct wl1271 *wl, u8 hlid);
 
 #define JOIN_TIMEOUT 5000 /* 5000 milliseconds to join */
 
