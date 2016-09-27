@@ -558,15 +558,5 @@
 			board-ref-clock = <4>;
 			board-tcxo-clock = <1>;
 		};
-
-		wlan_en_reg: fixedregulator@1 {
-			compatible = "regulator-fixed";
-			regulator-name = "wlan-en-regulator";
-			regulator-min-microvolt = <3300000>;
-			regulator-max-microvolt = <3300000>;
-			gpio = <&ioex 0 0x4>;
-			startup-delay-us = <70000>;
-			enable-active-high;
-		};
 	} ;
 } ;
