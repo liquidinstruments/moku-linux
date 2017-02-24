@@ -57,6 +57,6 @@
 
 		mercury_0: mercury@40401000 {
 			compatible = "mercury";
-			reg = <0x40401000 0x1000>;
+			reg = <0x40401000 0x1000>, <0x48000000 0x08000000>;
 		} ;
 	} ;

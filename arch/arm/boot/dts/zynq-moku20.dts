@@ -9,7 +9,7 @@
 /include/ "moku20-pl.dtsi"
 /{
 	chosen {
-		bootargs = "console=ttyPS0,115200 root=/dev/ram rw earlyprintk";
+		bootargs = "console=ttyPS0,115200 root=/dev/ram rw earlyprintk vmalloc=432M";
 		linux,stdout-path = &ps7_uart_1;
 	} ;
 	aliases {
