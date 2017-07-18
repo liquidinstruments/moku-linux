@@ -66,6 +66,13 @@ struct xilinx_cdma_config {
 	int reset;			/* Reset Channel */
 };
 
+/* DMA Callback Parameter Structure */
+struct xilinx_callback_param {
+	void *private_data;
+	u32 requested_len;
+	u32 transferred_len;
+};
+
 int xilinx_vdma_channel_set_config(struct dma_chan *dchan,
 					struct xilinx_vdma_config *cfg);
 
